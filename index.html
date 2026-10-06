@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Expenses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>My Expenses</h1>
+      <p class="sub" id="period"></p>
+    </div>
+    <div class="balance"><small>Period balance</small><strong id="bal">$0</strong></div>
+  </header>
+
+  <div class="grid">
+    <aside class="card">
+      <h2>New transaction</h2>
+      <form id="f" novalidate>
+        <div class="seg" role="radiogroup" aria-label="Type">
+          <label><input type="radio" name="type" value="expense" checked>Expense</label>
+          <label><input type="radio" name="type" value="income">Income</label>
+        </div>
+        <label>Amount<input id="amount" type="number" min="0.01" step="any" inputmode="decimal" placeholder="0"></label>
+        <label>Category<select id="cat"></select></label>
+        <label>Date<input id="date" type="date"></label>
+        <label>Description (optional)<input id="desc" type="text" maxlength="60" placeholder="e.g. groceries"></label>
+        <p class="err" id="err" role="alert"></p>
+        <button class="btn" type="submit">Add transaction</button>
+      </form>
+    </aside>
+
+    <main>
+      <section class="kpis" aria-label="Summary">
+        <div class="card kpi i"><span>Income</span><b id="kin" class="pos">$0</b></div>
+        <div class="card kpi o"><span>Expenses</span><b id="kout" class="neg">$0</b></div>
+        <div class="card kpi a"><span>Savings rate</span><b id="ksav">0%</b></div>
+      </section>
+
+      <section class="charts">
+        <div class="card"><h2>Income vs. expenses by month</h2><div class="cv"><canvas id="c1" role="img" aria-label="Monthly bar chart"></canvas></div></div>
+        <div class="card"><h2>Expenses by category</h2><div class="cv"><canvas id="c2" role="img" aria-label="Expenses by category chart"></canvas></div></div>
+      </section>
+
+      <section class="card">
+        <h2>Transactions</h2>
+        <div class="filters">
+          <select id="fm" aria-label="Month"></select>
+          <select id="ft" aria-label="Type"><option value="">All types</option><option value="income">Income</option><option value="expense">Expenses</option></select>
+          <select id="fc" aria-label="Category"></select>
+          <input id="fq" type="search" placeholder="Search description" aria-label="Search">
+        </div>
+        <ul class="list" id="list"></ul>
+        <p class="foot">Data is saved in this browser. <button id="reset" type="button">Clear all data</button></p>
+      </section>
+    </main>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
